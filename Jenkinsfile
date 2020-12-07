@@ -54,7 +54,8 @@ node {
                 rc = command "\"${toolbelt}\" force:apex:test:run --targetusername ${SF_ORG_ALIAS} --wait 10 --resultformat tap --codecoverage --testlevel ${TEST_LEVEL}"
                 if (rc != 0) {
                     error 'Salesforce unit test run in Dev failed.'
-                }            
+                }   
+                echo "output=$output";         
             }
 
             stage('Resultados') {

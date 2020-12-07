@@ -53,10 +53,16 @@ node {
             stage('Rodando testes em Dev') {
                 rc = command "\"${toolbelt}\" force:apex:test:run --targetusername ${SF_ORG_ALIAS} --wait 10 --resultformat tap --codecoverage --testlevel ${TEST_LEVEL}"
                 if (rc != 0) {
-                    error 'Salesforce unit test run in UAT failed.'
-                }
-                echo "script: "+script
-            }                      
+                    error 'Salesforce unit test run in Dev failed.'
+                }            
+            }
+
+            stage('Resultados') {
+                rc = command "\"${toolbelt}\" force:data:soql:query -t -q \"SELECT Status, MethodsCompleted, MethodsFailed, StartTime, EndTime FROM ApexTestRunResult order by EndTime desc LIMIT 1\" --json "                     
+                if (rc != 0) {
+                    error 'Falha ao motrar resultados.'
+                }  
+            }
         }
     }
 }

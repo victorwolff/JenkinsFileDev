@@ -19,6 +19,7 @@ node {
     // -------------------------------------------------------------------------
     // Check out code from source control.
     // -------------------------------------------------------------------------
+    echo "checkout test: "
 
     stage('checkout source') {
         checkout scm
@@ -54,13 +55,14 @@ node {
                 if (rc != 0) {
                     error 'Salesforce unit test run in UAT failed.'
                 }
+                echo "script: "+script
             }                      
         }
     }
 }
 
 def command(script) {
-    echo script;
+    
     if (isUnix()) {
         return sh(returnStatus: true, script: script);
     } else {

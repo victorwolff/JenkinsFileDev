@@ -55,7 +55,6 @@ node {
                 if (rc != 0) {
                     error 'Salesforce unit test run in Dev failed.'
                 }   
-                echo "output=$output";         
             }
 
             stage('Resultados') {
